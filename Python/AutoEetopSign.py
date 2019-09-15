@@ -51,7 +51,9 @@ class AutoDiscuz:
                 return
         else:
             logging.error("Login faild!")
-            self.is_login = False
+            if self.is_login:
+                self.is_login = False
+                return
             req = self.session.post(url_code, headers=self.header)
             soup = BeautifulSoup(req.text, 'lxml')
             info = soup.select("#vseccode_cSHPWGkw img[src]")[0].get("src")
